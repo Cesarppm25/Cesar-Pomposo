@@ -49,29 +49,29 @@ public:
     strftime(timeStringBuff, sizeof(timeStringBuff), "%Y-%m-%dT%H:%M:%SZ", &timeinfo);
   }
 };
-conexionWeb *coneccionHD;
-DateTime *tiempo;
-StaticJsonDocument<512> horaReal;
+conexionWeb *webInterface;
+DateTime *reloj;
+StaticJsonDocument<512> horaActual;
 
 
-const char *ssid="INFINITUM1272_5";
-const char *passwrd="E2a4F3PvSm";
+const char *ssid="Ubee16F8-2.4G";
+const char *passwrd="5F99F616F8";
 
 
 void setup() {
   Serial.begin(115200);
-  coneccionHD= new conexionWeb(ssid,passwrd);
-  tiempo=new DateTime();
+  webInterface= new conexionWeb(ssid,passwrd);
+  reloj=new DateTime();
   
 }
-int sumatotal=0;
+int suma=0;
 void loop() {
-  sumatotal++;
-  horaReal.clear();
-  tiempo->getTime();
-  horaReal["hora"]=tiempo->timeStringBuff;
-  horaReal["Sumatoria"]=sumatotal;
-  serializeJson(horaReal,Serial);
+  suma++;
+  horaActual.clear();
+  reloj->getTime();
+  horaActual["hora"]=reloj->timeStringBuff;
+  horaActual["Sumatoria"]=suma;
+  serializeJson(horaActual,Serial);
   Serial.println("");
   delay(1000);
 }
